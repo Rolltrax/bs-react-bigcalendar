@@ -13,6 +13,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "commonjs": "0.0.1",
+    "moment": "^2.22.2",
     "react": "^16.2.0",
     "react-big-calendar": "^0.19.2",
     "react-dom": "^16.2.0",

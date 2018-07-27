@@ -1,1 +1,1 @@
-ReactDOMRe.renderToElementWithId(<BasicCalendar message="Hello!" />, "basic-calendar");
+ReactDOMRe.renderToElementWithId(<Basic />, "basic-calendar");
