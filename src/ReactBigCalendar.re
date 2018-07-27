@@ -1,8 +1,8 @@
+open MomentRe;
+
 module BigCalendar = {
   [@bs.module]
   external reactClass : ReasonReact.reactClass = "react-big-calendar/lib/index";
-
-  Js.log(reactClass);
 
   /* Create a localizer */
   [@bs.module]
@@ -12,7 +12,10 @@ module BigCalendar = {
   external localize : Js.t({..}) => Js.t({..}) = "default";
   let localizer = localize(moment);
 
-  Js.log(localizer);
+  let omap = (f, x) => switch x {
+    | Some(y) => Some(f(y))
+    | None => None
+  };
 
   [@bs.deriving jsConverter]
   type calendarView = [
@@ -25,8 +28,8 @@ module BigCalendar = {
 
   type eventItem = {.
     "title": string,
-    "start": 'a. Js.Nullable.t('a),
-    "end_": 'a. Js.Nullable.t('a),
+    "start": Js.Nullable.t(Moment.t),
+    "end": Js.Nullable.t(Moment.t),
     "allDay": Js.Nullable.t(bool)
     /* TODO: Find a way to implement resource tag */
   };
@@ -34,9 +37,14 @@ module BigCalendar = {
   let event(~title, ~start = ?, ~end_ = ?, ~allDay = ?, ()) {
     "title": title,
     "start": Js.Nullable.fromOption(start),
-    "end_": Js.Nullable.fromOption(end_),
+    "end": Js.Nullable.fromOption(end_),
     "allDay": Js.Nullable.fromOption(allDay)
   };
+
+  type range = {.
+    "start": Moment.t,
+    "end": Moment.t
+  }
 
   let make =
   (
@@ -45,15 +53,24 @@ module BigCalendar = {
     ~view: option(calendarView) = ?,
     ~defaultView: option(calendarView) = ?,
     ~events: option(Js.Array.t(eventItem)) = ?,
-    ~titleAccessor: option(eventItem => string) = ?,
-    ~tooltipAccessor: option(eventItem => string) = ?,
-    ~allDayAccessor: option(eventItem => string) = ?,
-    ~startAccessor: option(eventItem => Js.t({..})) = ?,
-    ~endAccessor: option(eventItem => Js.t({..})) = ?,
-    ~resourceAccessor: option(eventItem => Js.t({..})) = ?,
+    ~titleAccessor: option(string) = ?,
+    ~tooltipAccessor: option(string) = ?,
+    ~allDayAccessor: option(string) = ?,
+    ~startAccessor: option(string) = ?,
+    ~endAccessor: option(string) = ?,
+    ~resourceAccessor: option(string) = ?,
     ~resources: option(array(Js.t({..}))) = ?,
     ~resourceIdAccessor: option(Js.t({..}) => Js.t({..})) = ?,
-    ~resourceTitleAccessor: option(Js.t({..}) => Js.t({..})) = ?
+    ~resourceTitleAccessor: option(Js.t({..}) => Js.t({..})) = ?,
+    ~getNow: option(Moment.t) = ?,
+    ~onNavigate: option(Js.t({..}) => unit) = ?,
+    ~onView: option(calendarView => unit) = ?,
+    ~onDrillDown: option(unit) = ?,
+    ~onRangeChange: option(array(Js.t({..})) => unit) = ?,
+    ~onSelectSlot: option(Js.t({..}) => unit) = ?,
+    ~onSelectEvent: option(eventItem => unit) = ?,
+    ~onDoubleClickEvent: option(eventItem => unit) = ?,
+    ~onSelecting: option(range => bool) = ?
   ) =>
   ReasonReact.wrapJsForReason(
     ~reactClass,
@@ -61,8 +78,8 @@ module BigCalendar = {
      /* "localizer": localizer, */
       "elementProps": fromOption(elementProps),
       "date": fromOption(date),
-      "view": fromOption(view),
-      "defaultView": fromOption(defaultView),
+      "view": fromOption(view |> omap(calendarViewToJs)),
+      "defaultView": fromOption(defaultView |> omap(calendarViewToJs)),
       "events": fromOption(events),
       "titleAccessor": fromOption(titleAccessor),
       "tooltipAccessor": fromOption(tooltipAccessor),
@@ -72,7 +89,10 @@ module BigCalendar = {
       "resourceAccessor": fromOption(resourceAccessor),
       "resources": fromOption(resources),
       "resourceIdAccessor": fromOption(resourceIdAccessor),
-      "resourceTitleAccessor": fromOption(resourceTitleAccessor)
+      "resourceTitleAccessor": fromOption(resourceTitleAccessor),
+      "getNow": fromOption(getNow),
+      /* put others above*/
+      "onSelecting": fromOption(onSelecting),
     })
   );
 };

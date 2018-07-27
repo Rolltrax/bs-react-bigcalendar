@@ -15,7 +15,8 @@
   "namespace": true,
   "bs-dependencies": [
     "reason-react",
-    "bs-react-bigcalendar"
+    "bs-react-bigcalendar",
+    "bs-moment"
   ],
   "refmt": 3
 }
