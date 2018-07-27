@@ -17,14 +17,20 @@ module BigCalendar = {
     | None => None
   };
 
-  [@bs.deriving jsConverter]
-  type calendarView = [
-    | [@bs.as "month"] `Month
-    | [@bs.as "week"]  `Week
-    | [@bs.as "work_week"] `WorkWeek
-    | [@bs.as "day"] `Day
-    | [@bs.as "agenda"] `Agenda
-  ];
+  type calendarView =
+    | Month
+    | Week
+    | WorkWeek
+    | Day
+    | Agenda;
+
+  let calendarViewToString = cv => switch cv {
+    | Month => "month"
+    | Week => "week"
+    | WorkWeek => "work_week"
+    | Day => "day"
+    | Agenda => "agenda"
+  };
 
   type eventItem = {.
     "title": string,
@@ -78,8 +84,8 @@ module BigCalendar = {
      /* "localizer": localizer, */
       "elementProps": fromOption(elementProps),
       "date": fromOption(date),
-      "view": fromOption(view |> omap(calendarViewToJs)),
-      "defaultView": fromOption(defaultView |> omap(calendarViewToJs)),
+      "view": fromOption(view |> omap(calendarViewToString)),
+      "defaultView": fromOption(defaultView |> omap(calendarViewToString)),
       "events": fromOption(events),
       "titleAccessor": fromOption(titleAccessor),
       "tooltipAccessor": fromOption(tooltipAccessor),
