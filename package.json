@@ -10,7 +10,7 @@
   "keywords": [
     "BuckleScript"
   ],
-  "author": "",
+  "author": "Zach Baylin <me@zachbayl.in>",
   "license": "MIT",
   "dependencies": {
     "bs-moment": "^0.3.0",

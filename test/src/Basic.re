@@ -16,8 +16,8 @@ let make(children) {
     events: [|
       BigCalendar.event(
         ~title="All Day Event",
-        ~start=momentNow(),
-        ~end_=momentNow(),
+        ~start=Moment.toDate(momentNow()),
+        ~end_=Moment.toDate(momentNow()),
         ~allDay=true,
         ()
       )
@@ -30,6 +30,7 @@ let make(children) {
     <div className="calendar-container">
       <BigCalendar
         events=self.state.events
+        eventPropGetter=((eventProp) => {Js.log(eventProp); {"className": "has-background-danger"}})
         >
       </BigCalendar>
     </div>;

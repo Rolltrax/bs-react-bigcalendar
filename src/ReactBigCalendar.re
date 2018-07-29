@@ -60,6 +60,13 @@ module BigCalendar = {
     "end": end_
   };
 
+  type propGetter = {.
+    "className": string,
+  }
+
+  let propGetter(~className, ()) = {
+    "className": className
+  };
   let make =
   (
     ~elementProps: option(Js.t({..})) = ?,
@@ -99,7 +106,8 @@ module BigCalendar = {
     ~step: option(int) = ?,
     ~timeslots: option(int) = ?,
     ~rtl: option(bool) = ?,
-    /* TODO: Implement getters */
+    ~eventPropGetter: option((eventItem) => propGetter) = ?,
+    ~slotPropGetter: option(Js.t({. "date": Js.Date.t}) => propGetter) = ?,
     ~showMultiDayTimes: option(bool) = ?,
     ~min: option(Js.Date.t) = ?,
     ~max: option(Js.Date.t) = ?,
@@ -114,7 +122,7 @@ module BigCalendar = {
       "localizer": localizer,
       "elementProps": fromOption(elementProps),
       "date": fromOption(date),
-      "view": fromOption(calendarViewOMap(defaultView)),
+      "view": fromOption(calendarViewOMap(view)),
       "defaultView": fromOption(calendarViewOMap(defaultView)),
       "events": fromOption(events),
       "titleAccessor": fromOption(titleAccessor),
@@ -149,6 +157,8 @@ module BigCalendar = {
       "step": fromOption(step),
       "timeslots": fromOption(timeslots),
       "rtl": fromOption(rtl),
+      "eventPropGetter": fromOption(eventPropGetter),
+      "slotPropGetter": fromOption(slotPropGetter),
       "showMultiDayTimes": fromOption(showMultiDayTimes),
       "min": fromOption(min),
       "max": fromOption(max),
