@@ -144,10 +144,6 @@ module BigCalendar = {
       "onDoubleClickEvent": fromOption(onDoubleClickEvent),
       "onSelecting": fromOption(onSelecting),
       "selected": fromOption(selected),
-      "views": switch views {
-      | Some(a) => Array.map(cv => calendarViewToString(cv), a)
-      | None => [||]
-      },
       "drillDownView": fromOption(drillDownView),
       "getDrillDownView": fromOption(getDrillDownView),
       "length": fromOption(length),
