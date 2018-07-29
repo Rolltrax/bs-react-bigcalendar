@@ -29,7 +29,8 @@ let make(children) {
   render: (self) => {
     <div className="calendar-container">
       <BigCalendar
-        events=self.state.events>
+        events=self.state.events
+        >
       </BigCalendar>
     </div>;
   }
