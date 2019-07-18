@@ -17,14 +17,14 @@
   "dependencies": {
     "bs-moment": "^0.3.0",
     "commonjs": "0.0.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "reason-react": ">=0.4.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "reason-react": ">=0.7.0"
   },
   "devDependencies": {
-    "bs-platform": "^4.0.0",
+    "bs-platform": "^5.0.6",
     "bs-react-bigcalendar": "file:..",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.10"
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "bs-react-bigcalendar",
   "reason": {
-    "react-jsx": 2
+    "react-jsx": 3
   },
   "sources": {
     "dir" : "src",
@@ -12,7 +12,7 @@
     "in-source": true
   }],
   "suffix": ".bs.js",
-  "namespace": false,
+  "namespace": true,
   "bs-dependencies": [
     "reason-react",
     "bs-moment"

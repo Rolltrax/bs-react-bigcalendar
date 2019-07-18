@@ -1,6 +1,6 @@
 {
   "name": "bs-react-bigcalendar",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
@@ -14,15 +14,14 @@
   "license": "MIT",
   "dependencies": {
     "bs-moment": "^0.3.0",
-    "commonjs": "0.0.1",
     "moment": "^2.22.2",
-    "react": "^16.2.0",
-    "react-big-calendar": "^0.19.2",
-    "react-dom": "^16.2.0",
-    "reason-react": ">=0.4.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-big-calendar": "^0.22.0",
+    "reason-react": "^0.7.0"
   },
   "devDependencies": {
-    "bs-platform": "^4.0.0",
+    "bs-platform": "^5.0.6",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10"
   }
