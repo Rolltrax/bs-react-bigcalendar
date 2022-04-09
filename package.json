@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "bs-moment": "^0.3.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-big-calendar": "^0.22.0",
